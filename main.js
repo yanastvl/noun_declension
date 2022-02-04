@@ -2,7 +2,8 @@ const select = document.getElementById("cases");
 const options = ["Родительный", "Дательный", "Винительный", "Творительный", "Предложный"];
 const result = document.getElementById("result");
 
-const vowels = ["а", "и", "е", "ё", "о", "у", "ы", "э", "ю", "я", "й", "ь"];
+const consonants = ["б", "в", "г", "д", "ж", "з" ,"п", "ф", "к", "т", "ш", "с", "л", "м", "н", "р", "х", "ц", "ч", "щ"];
+const vowelsAndOthers = ["а", "и", "е", "ё", "о", "у", "ы", "э", "ю", "я", "й", "ь"];
 const twoLettersSuffixList = ["ия", "ие", "ка"];
 
 
@@ -31,7 +32,7 @@ const casesMap = {
         "help_question": "чему? кому?"
     },
     "Винительный": {
-        "letters": ["", "о", "е", "у", "ю", "я", "я", "е", "ь", "у"],
+        "letters": ["", "о", "е", "у", "ю", "я", "ю", "е", "ь", "у"],
         "help_question": "что? кого?"
     },
     "Творительный": {
@@ -84,7 +85,10 @@ select.addEventListener('change', evt => {
     }
 
     let oneLetterSuffix = word.slice(-1);
-    if (!vowels.includes(oneLetterSuffix)) {
+    if (!vowelsAndOthers.includes(oneLetterSuffix)) {
+        if (!consonants.includes(oneLetterSuffix)) {
+            return setResult(`Проверьте правильность написания слова '${word}'`);
+        }
         oneLetterSuffix = "no_letter";
     } else {
         word = word.slice(0, -1);
